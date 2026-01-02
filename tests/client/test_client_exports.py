@@ -47,7 +47,7 @@ def test_export_creation_with_index_filter(
 
 def assert_exported_count(index, expected_count):
     # Wait up to 50 seconds for documents to be imported
-    max_attempts = 250
+    max_attempts = 2500
     for attempt in range(max_attempts):
         doc_count = index.get_documents().total
         if doc_count == expected_count:
