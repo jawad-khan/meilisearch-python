@@ -30,7 +30,7 @@ def _clear_indexes(meilisearch_client):
     indexes = meilisearch_client.get_indexes()
     for index in indexes["results"]:
         task = meilisearch_client.index(index.uid).delete()
-        meilisearch_client.wait_for_task(task.task_uid, timeout_in_ms=60000)
+        meilisearch_client.wait_for_task(task.task_uid)
 
 
 @fixture(autouse=True)
@@ -41,7 +41,6 @@ def clear_indexes(client, client2):
     """
     # Yields back to the test function.
     yield
-    pass
     _clear_indexes(client)
     if client2 is not None:
         _clear_indexes(client2)
