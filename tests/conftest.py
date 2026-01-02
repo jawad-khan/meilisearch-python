@@ -41,6 +41,7 @@ def clear_indexes(client, client2):
     """
     # Yields back to the test function.
     yield
+    pass
     _clear_indexes(client)
     if client2 is not None:
         _clear_indexes(client2)
