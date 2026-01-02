@@ -30,7 +30,7 @@ def _clear_indexes(meilisearch_client):
     indexes = meilisearch_client.get_indexes()
     for index in indexes["results"]:
         task = meilisearch_client.index(index.uid).delete()
-        meilisearch_client.wait_for_task(task.task_uid, timeout_in_ms=6000000)
+        meilisearch_client.wait_for_task(task.task_uid, timeout_in_ms=60000)
 
 
 @fixture(autouse=True)

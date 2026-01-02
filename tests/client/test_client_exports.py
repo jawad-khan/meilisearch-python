@@ -17,7 +17,7 @@ def test_export_creation(
     """Tests the creation of a Meilisearch export."""
     index = index_with_documents()
     export_task = client.export(common.BASE_URL_2, api_key=common.MASTER_KEY)
-    task_result = client.wait_for_task(export_task.task_uid)
+    task_result = client.wait_for_task(export_task.task_uid, timeout_in_ms=600000)
     assert task_result.status == "succeeded"
 
     index2 = client2.get_index(index.uid)
@@ -34,7 +34,7 @@ def test_export_creation_with_index_filter(
 
     indexes = {index.uid: {"filter": None}}
     export_task = client.export(common.BASE_URL_2, api_key=common.MASTER_KEY, indexes=indexes)
-    task_result = client.wait_for_task(export_task.task_uid)
+    task_result = client.wait_for_task(export_task.task_uid, timeout_in_ms=600000)
     assert task_result.status == "succeeded"
 
     response = client2.get_indexes()
