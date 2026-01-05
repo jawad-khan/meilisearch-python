@@ -17,7 +17,7 @@ def test_export_creation(
     """Tests the creation of a Meilisearch export."""
     index = index_with_documents()
     export_task = client.export(common.BASE_URL_2, api_key=common.MASTER_KEY)
-    task_result = client.wait_for_task(export_task.task_uid, timeout_in_ms=600000)
+    task_result = client.wait_for_task(export_task.task_uid)
     assert task_result.status == "succeeded"
 
     index2 = client2.get_index(index.uid)
@@ -34,7 +34,7 @@ def test_export_creation_with_index_filter(
 
     indexes = {index.uid: {"filter": None}}
     export_task = client.export(common.BASE_URL_2, api_key=common.MASTER_KEY, indexes=indexes)
-    task_result = client.wait_for_task(export_task.task_uid, timeout_in_ms=600000)
+    task_result = client.wait_for_task(export_task.task_uid)
     assert task_result.status == "succeeded"
 
     response = client2.get_indexes()
@@ -47,7 +47,7 @@ def test_export_creation_with_index_filter(
 
 def assert_exported_count(index, expected_count):
     # Wait up to 50 seconds for documents to be imported
-    max_attempts = 2500
+    max_attempts = 20
     for attempt in range(max_attempts):
         doc_count = index.get_documents().total
         if doc_count == expected_count:
