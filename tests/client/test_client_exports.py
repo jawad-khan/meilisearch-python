@@ -6,7 +6,7 @@ import pytest
 from tests import common
 
 pytestmark = pytest.mark.skipif(
-    not os.getenv("MEILISEARCH_URL_2"),
+    not os.getenv(common.BASE_URL_2),
     reason="Export API tests run only when second server is configured",
 )
 

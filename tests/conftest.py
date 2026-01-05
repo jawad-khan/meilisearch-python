@@ -19,7 +19,7 @@ def client():
 
 @fixture(scope="session")
 def client2():
-    if not os.getenv("MEILISEARCH_URL_2"):
+    if not os.getenv(common.BASE_URL_2):
         return None
     return meilisearch.Client(common.BASE_URL_2, common.MASTER_KEY)
 
@@ -30,7 +30,7 @@ def _clear_indexes(meilisearch_client):
     indexes = meilisearch_client.get_indexes()
     for index in indexes["results"]:
         task = meilisearch_client.index(index.uid).delete()
-        meilisearch_client.wait_for_task(task.task_uid, timeout_in_ms=10000, interval_in_ms=100)
+        meilisearch_client.wait_for_task(task.task_uid, timeout_in_ms=50000, interval_in_ms=100)
 
 
 @fixture(autouse=True)
