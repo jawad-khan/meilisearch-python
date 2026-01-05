@@ -19,7 +19,7 @@ def client():
 
 @fixture(scope="session")
 def client2():
-    if not os.getenv(common.BASE_URL_2):
+    if not common.BASE_URL_2:
         return None
     return meilisearch.Client(common.BASE_URL_2, common.MASTER_KEY)
 
